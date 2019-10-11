@@ -1,0 +1,168 @@
+﻿API = Application Programming Interface 
+
+REST = Representational State Transfer
+REST	is	a	way	to	do	IPC	(interprocess	communicaBon)	over	HTTP.
+
+URL = Uniform Resource Locator 
+
+HTTP = Hypertext Transfer Protocol
+
+XML = Extensible Markup Language 
+
+JSON = Javascript Object Notation 
+
+CURL = Client URL Request Library --> command line utility 
+
+Request = Endpoint(URL) + Method + Headers + Body or data or message 
+
+POSTMAN tool can be used to check the content/body/response of request planned to send 
+
+Output of API REST request is in XML / JSON format 
+
+open command prompt and use below
+C:\Users\yourusername> curl --version
+curl 7.55.1 (Windows) libcurl/7.55.1 WinSSL
+Release-Date: [unreleased]
+Protocols: dict file ftp ftps http https imap imaps pop3 pop3s smtp smtps telnet tftp
+Features: AsynchDNS IPv6 Largefile SSPI Kerberos SPNEGO NTLM SSL
+
+open gitbash or putty and use below 
+[splunk@ip-10-0-101-10 ~]$ curl --version
+curl 7.29.0 (x86_64-redhat-linux-gnu) libcurl/7.29.0 NSS/3.36 zlib/1.2.7 libidn/1.28 libssh2/1.4.3
+Protocols: dict file ftp ftps gopher http https imap imaps ldap ldaps pop3 pop3s rtsp scp sftp smtp smtps telnet tftp
+Features: AsynchDNS GSS-Negotiate IDN IPv6 Largefile NTLM NTLM_WB SSL libz unix-sockets
+
+The root-endpoint of Github’s API is https://api.github.com
+
+The endpoint to get a list of my repos on Github is this: https://api.github.com/users/dbreddyAI/repos
+
+After root-endpoint , path comes , in above /users/dbreddyAI/repos is the path 
+
+Endpoint = Root-endpoint + path 
+
+curl https://api.github.com/users/dbreddyAI/repos  --> Testing Endpoints With Curl
+
+Method is the type of request you send to the server
+
+CREATE = POST
+READ   = GET 
+UPDATE = PUT & PATCH
+DELETE = DELETE
+
+GET
+This request is used to get a resource from a server. If you perform a `GET` request, the server looks for the data you requested and sends it back to you. In other words, a `GET` request performs a `READ` operation. This is the default request method.
+
+POST
+This request is used to create a new resource on a server. If you perform a `POST` request, the server creates a new entry in the database and tells you whether the creation is successful. In other words, a `POST` request performs an `CREATE` operation.
+
+PUT & PATCH
+These two requests are used to update a resource on a server. If you perform a `PUT` or `PATCH` request, the server updates an entry in the database and tells you whether the update is successful. In other words, a `PUT` or `PATCH` request performs an `UPDATE` operation.
+
+DELETE
+This request is used to delete a resource from a server. If you perform a `DELETE` request, the server deletes an entry in the database and tells you whether the deletion is successful. In other words, a `DELETE` request performs a `DELETE` operation.
+
+1XX - Information
+2XX - Success
+3XX - Redirect
+4XX - Client Error (you messed up)
+5XX - Server Error (they messed up)
+
+In python we use requests module 
+
+pip3 install requests ---> Installation command in python 
+
+pip3 list (or) pip3 freeze --> To check whether requests module installed or not 
+
+-------------------------------------------------------------------------------------
+
+>>> import requests
+>>> print(dir(requests))
+['ConnectTimeout', 'ConnectionError', 'DependencyWarning', 'FileModeWarning', 'HTTPError', 'NullHandler', 'PreparedRequest', 'ReadTimeout', 'Request', 'RequestException', 'RequestsDependencyWarning', 'Response', 'Session', 'Timeout', 'TooManyRedirects', 'URLRequired', '__author__', '__author_email__', '__build__', '__builtins__', '__cached__', '__cake__', '__copyright__', '__description__', '__doc__', '__file__', '__license__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__title__', '__url__', '__version__', '_check_cryptography', '_internal_utils', 'adapters', 'api', 'auth', 'certs', 'chardet', 'check_compatibility', 'codes', 'compat', 'cookies', 'delete', 'exceptions', 'get', 'head', 'hooks', 'logging', 'models', 'options', 'packages', 'patch', 'post', 'put', 'request', 'session', 'sessions', 'status_codes', 'structures', 'urllib3', 'utils', 'warnings']
+>>> print(requests.__version__)
+2.22.0
+>>> methods_in_requests_module=[]
+>>> for i in dir(requests):
+...     if type(getattr(requests, i)).__name__ == "function":
+...         methods_in_requests_module.append(i)
+...
+>>> methods_in_requests_module
+['_check_cryptography', 'check_compatibility', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'request', 'session']
+>>> r = requests.get('https://api.github.com')
+>>> print(type(r))
+<class 'requests.models.Response'>
+>>> print(r.status_code)
+200
+>>> print(r.headers)
+{'Date': 'Thu, 10 Oct 2019 05:48:22 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Server': 'GitHub.com', 'Status': '200 OK', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '54', 'X-RateLimit-Reset': '1570690040', 'Cache-Control': 'public, max-age=60, s-maxage=60', 'Vary': 'Accept, Accept-Encoding', 'ETag': 'W/"7dc470913f1fe9bb6c7355b50a0737bc"', 'X-GitHub-Media-Type': 'github.v3; format=json', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '1; mode=block', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'X-GitHub-Request-Id': '467B:54A1:2EDFD8:3CE6E2:5D9EC625'}
+>>> print(r.headers['content-type'])
+application/json; charset=utf-8
+>>> print(r.text)
+>>> print(r.json())
+
+-------------------------------------------------------------------------------------
+
+>>> import requests
+>>> print(dir(requests))
+['ConnectTimeout', 'ConnectionError', 'DependencyWarning', 'FileModeWarning', 'HTTPError', 'NullHandler', 'PreparedRequest', 'ReadTimeout', 'Request', 'RequestException', 'RequestsDependencyWarning', 'Response', 'Session', 'Timeout', 'TooManyRedirects', 'URLRequired', '__author__', '__author_email__', '__build__', '__builtins__', '__cached__', '__cake__', '__copyright__', '__description__', '__doc__', '__file__', '__license__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__title__', '__url__', '__version__', '_check_cryptography', '_internal_utils', 'adapters', 'api', 'auth', 'certs', 'chardet', 'check_compatibility', 'codes', 'compat', 'cookies', 'delete', 'exceptions', 'get', 'head', 'hooks', 'logging', 'models', 'options', 'packages', 'patch', 'post', 'put', 'request', 'session', 'sessions', 'status_codes', 'structures', 'urllib3', 'utils', 'warnings']
+>>> print(requests.__version__)
+2.22.0
+>>> methods_in_requests_module=[]
+>>> for i in dir(requests):
+...     if type(getattr(requests, i)).__name__ == "function":
+...         methods_in_requests_module.append(i)
+...
+>>> methods_in_requests_module
+['_check_cryptography', 'check_compatibility', 'delete', 'get', 'head', 'options', 'patch', 'post', 'put', 'request', 'session']
+>>>
+>>> data = requests.get('https://api.github.com')
+>>> print(type(data))
+<class 'requests.models.Response'>
+>>> print(dir(data))
+['__attrs__', '__bool__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__enter__', '__eq__', '__exit__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__nonzero__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__setstate__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_content', '_content_consumed', '_next', 'apparent_encoding', 'close', 'connection', 'content', 'cookies', 'elapsed', 'encoding', 'headers', 'history', 'is_permanent_redirect', 'is_redirect', 'iter_content', 'iter_lines', 'json', 'links', 'next', 'ok', 'raise_for_status', 'raw', 'reason', 'request', 'status_code', 'text', 'url']
+>>> print(data.apparent_encoding)
+ascii
+>>> print(data.connection)
+<requests.adapters.HTTPAdapter object at 0x00000221EAB00F98>
+>>> print(data.elapsed)
+0:00:00.738953
+>>> print(data.encoding)
+utf-8
+>>> print(data.is_permanent_redirect)
+False
+>>> print(data.is_redirect)
+False
+>>> print(data.iter_content)
+<bound method Response.iter_content of <Response [200]>>
+>>> print(data.iter_lines)
+<bound method Response.iter_lines of <Response [200]>>
+>>> print(data.request)
+<PreparedRequest [GET]>
+>>> print(data.status_code)
+200
+>>> print(data.url)
+https://api.github.com/
+>>> print(data.history)
+[]
+>>> print(data.headers)
+{'Date': 'Thu, 10 Oct 2019 06:36:34 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Server': 'GitHub.com', 'Status': '200 OK', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '50', 'X-RateLimit-Reset': '1570692123', 'Cache-Control': 'public, max-age=60, s-maxage=60', 'Vary': 'Accept, Accept-Encoding', 'ETag': 'W/"7dc470913f1fe9bb6c7355b50a0737bc"', 'X-GitHub-Media-Type': 'github.v3; format=json', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '1; mode=block', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'X-GitHub-Request-Id': '5866:4E40:B1DC3F:E45A43:5D9ED172'}
+>>>
+>>> print(data.headers['content-type'])
+application/json; charset=utf-8
+>>> print(data.text)
+>>> print(data.json())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
