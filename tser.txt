@@ -1,7 +1,7 @@
 ﻿API = Application Programming Interface 
 
 REST = Representational State Transfer
-REST	is	a	way	to	do	IPC	(interprocess	communicaBon)	over	HTTP.
+REST is	a way to do IPC	(interprocess communication) over HTTP.
 
 URL = Uniform Resource Locator 
 
@@ -11,11 +11,17 @@ XML = Extensible Markup Language
 
 JSON = Javascript Object Notation 
 
-CURL = Client URL Request Library --> command line utility 
+CURL = (Client URL Request Library) --> command line utility 
 
-Request = Endpoint(URL) + Method + Headers + Body or data or message 
+Request = 1[Endpoint(URL)] + 2[Method] + 3[Headers] + 4[Body or data or message]
 
-POSTMAN tool can be used to check the content/body/response of request planned to send 
+RESTful web services make use of HTTP protocol as a medium of communication between client and server.
+
+Request body of every HTTP message includes request data called as Payload
+
+Headers can be used for several purposes, including providing a summary about the body content or providing authentication. Headers provide information to both the server and the client.
+
+POSTMAN tool can be used to check the content/body/response of request planned to send in python script
 
 Output of API REST request is in XML / JSON format 
 
@@ -36,11 +42,13 @@ The root-endpoint of Github’s API is https://api.github.com
 
 The endpoint to get a list of my repos on Github is this: https://api.github.com/users/dbreddyAI/repos
 
-After root-endpoint , path comes , in above /users/dbreddyAI/repos is the path 
+After root-endpoint , path comes , in above (/users/dbreddyAI/repos) is the path 
 
 Endpoint = Root-endpoint + path 
 
 curl https://api.github.com/users/dbreddyAI/repos  --> Testing Endpoints With Curl
+
+Request to Endpoints can be sent using CURL & programming languages
 
 Method is the type of request you send to the server
 
@@ -58,8 +66,40 @@ This request is used to create a new resource on a server. If you perform a `POS
 PUT & PATCH
 These two requests are used to update a resource on a server. If you perform a `PUT` or `PATCH` request, the server updates an entry in the database and tells you whether the update is successful. In other words, a `PUT` or `PATCH` request performs an `UPDATE` operation.
 
+PUT = Full Update , Patch = Partial Update
+
 DELETE
 This request is used to delete a resource from a server. If you perform a `DELETE` request, the server deletes an entry in the database and tells you whether the deletion is successful. In other words, a `DELETE` request performs a `DELETE` operation.
+
+OPTIONS: It indicates which techniques are supported
+
+HEAD: About the request URL it returns meta information
+
+The data option can only be used with POST, PATCH, PUT, or DELETE requests and not the GET request. This is because the data refers to the information you’re sending to the server
+
+What do you mean by idempotent operation?
+Idempotent operations means their result will always same no matter how many times these operations are invoked.
+
+Which type of Webservices methods are to be idempotent?
+PUT and DELETE operations are idempotent.
+
+Which type of Webservices methods are to be read only?
+GET operations are read only and are safe.
+
+What is the difference between PUT and POST operations?
+PUT and POST operation are nearly same with the difference lying only in the result where PUT operation is idempotent and POST operation can cause different result.
+
+What should be the purpose of OPTIONS method of RESTful web services?
+It should list down the supported operations in a web service and should be read only.
+
+What should be the purpose of HEAD method of RESTful web services?
+It should return only HTTP Header, no Body and should be read only.
+
+To prevent your database from being altered by an unauthorized person, put up an authentication wall.
+
+Authentication is of 2 types : 1 .Basic authentication(username & password)  , 2. Using secret token
+
+When you first implement REST API, it will be easier to start small model and scale/enhance the model later 
 
 1XX - Information
 2XX - Success
@@ -67,7 +107,7 @@ This request is used to delete a resource from a server. If you perform a `DELET
 4XX - Client Error (you messed up)
 5XX - Server Error (they messed up)
 
-In python we use requests module 
+You can use any programming language to send a request. In python we use "requests" module 
 
 pip3 install requests ---> Installation command in python 
 
