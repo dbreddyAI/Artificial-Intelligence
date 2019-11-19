@@ -1,0 +1,61 @@
+pip --version
+
+pip install packagename
+
+pip uninstall packagename
+
+pip search packagename
+
+pip freeze
+
+pip list
+
+pip show packagename
+
+pip install -r requirements.txt
+
+pip install packagename==1.0.4
+
+pip install --upgrade pip setuptools wheel
+
+pip help
+
+----------------------------------------------------
+pip freeze > requirements.txt
+
+cat requirements.txt
+
+certifi==2018.11.29
+chardet==3.0.4
+idna==2.8
+requests==2.21.0
+urllib3==1.24.1
+
+pip install -r requirements.txt
+
+-----------------------------------------------------
+
+pip uninstall -r requirements.txt -y
+
+pip install Flask==0.10.1
+# install this particular version 
+
+pip install "Flask>=0.9,<0.11"
+# install versions matching the range from 0.9 up to (but not including) 0.11
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
